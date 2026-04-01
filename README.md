@@ -1,0 +1,13 @@
+# AutoGluon for Time Series Forecasting in Python
+
+**Published:** 2025-01-20
+**Medium:** [https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c](https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c)
+
+## About
+
+Place the code for this article in this repository.
+The original article export is saved as `article.md`.
+
+## Files
+
+Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
