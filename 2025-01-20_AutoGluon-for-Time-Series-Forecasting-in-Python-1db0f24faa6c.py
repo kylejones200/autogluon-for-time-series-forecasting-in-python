@@ -58,7 +58,7 @@ train_data = TimeSeriesDataFrame.from_data_frame(
     timestamp_column='timestamp'
 )
 
-item_id   timestamp  sales
+# item_id   timestamp  sales
 
 # Initialize predictor
 predictor = TimeSeriesPredictor(
@@ -81,12 +81,12 @@ predictor.plot(train_data)
 performance = predictor.evaluate(train_data)
 logger.info(performance)
 
-item_id   timestamp      sales
-0       A 2022-01-31  350.1234
-1       A 2022-02-28  360.5678
-2       A 2022-03-31  370.9876
-3       B 2022-01-31  310.4321
-4       B 2022-02-28  320.8765
+# item_id   timestamp      sales
+# 0       A 2022-01-31  350.1234
+# 1       A 2022-02-28  360.5678
+# 2       A 2022-03-31  370.9876
+# 3       B 2022-01-31  310.4321
+# 4       B 2022-02-28  320.8765
 
 # Plot forecasted vs actual values
 predictor.plot(train_data)
