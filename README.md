@@ -1,7 +1,7 @@
 # AutoGluon for Time Series Forecasting in Python
 
-**Published:** 2025-01-20
-**Medium:** [https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c](https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c)
+Published: 2025-01-20
+Medium: [https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c](https://medium.com/@kyle-t-jones/autogluon-for-time-series-forecasting-in-python-1db0f24faa6c)
 
 ## About
 

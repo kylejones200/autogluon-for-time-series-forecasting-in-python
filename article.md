@@ -3,7 +3,7 @@
 AutoGluon is auto ML Python library that streamlines feature engineering, model selection, hyperparameter tuning, and evaluation. AutoGluon...
 
 ### AutoGluon for Time Series Forecasting in Python
-**AutoGluon** is auto ML Python library that streamlines feature engineering, model selection, hyperparameter tuning, and evaluation. AutoGluon has a `TimeSeriesPredictor` specifically made for time series forecasting.
+AutoGluon is auto ML Python library that streamlines feature engineering, model selection, hyperparameter tuning, and evaluation. AutoGluon has a `TimeSeriesPredictor` specifically made for time series forecasting.
 
 AutoGluon's time series module automates a lot of things --- including model selection, tuning, and feature engineering. It can create ensembles by combining multiple models. The API is easy to use (especially if you have built models with AWS SageMaker before).
 
@@ -12,9 +12,9 @@ The workflow with AutoGluon for time series involves preparing the dataset, init
 
 Here is an example with synthetic data. We start by declaring:
 
-- **time_column**: The timestamp for each observation.
-- **target_column**: The value to be predicted.
-- **item_id_column (optional)**: Identifies different time series in a dataset (for multivariate forecasting).
+- time_column: The timestamp for each observation.
+- target_column: The value to be predicted.
+- item_id_column (optional): Identifies different time series in a dataset (for multivariate forecasting).
 
 
 Output:
