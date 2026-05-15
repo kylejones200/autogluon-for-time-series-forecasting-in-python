@@ -7,6 +7,7 @@ from autogluon.timeseries import TimeSeriesPredictor
 import logging
 import numpy as np
 import pandas as pd
+np.random.seed(42)
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
