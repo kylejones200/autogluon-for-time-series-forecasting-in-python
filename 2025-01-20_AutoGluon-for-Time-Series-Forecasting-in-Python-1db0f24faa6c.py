@@ -1,12 +1,12 @@
 # Description: Short example for AutoGluon for Time Series Forecasting in Python.
 
 
-
-from autogluon.timeseries import TimeSeriesDataFrame
-from autogluon.timeseries import TimeSeriesPredictor
 import logging
+
 import numpy as np
 import pandas as pd
+from autogluon.timeseries import TimeSeriesDataFrame, TimeSeriesPredictor
+
 np.random.seed(42)
 
 logger = logging.getLogger(__name__)
@@ -16,12 +16,12 @@ logging.basicConfig(
 )
 
 
-
 # Create more complex sample data with seasonal patterns
 np.random.seed(42)  # for reproducibility
 
 # Generate timestamps for 3 years of monthly data
 timestamps = pd.date_range("2020-01-01", periods=36, freq="ME")
+
 
 # Function to create seasonal pattern
 def create_seasonal_data(base_value, trend, seasonal_amplitude, noise_level):
@@ -34,74 +34,87 @@ def create_seasonal_data(base_value, trend, seasonal_amplitude, noise_level):
     noise = np.random.normal(0, noise_level, len(time))
     return trend_component + seasonal_component + noise
 
-# Create different patterns for different items
-data = {
-    "item_id": ["A"] * 36 + ["B"] * 36 + ["C"] * 36,
-    "timestamp": timestamps.tolist() * 3,
-    "sales": np.concatenate([
-        # Item A: Strong seasonality, moderate trend, low noise
-        create_seasonal_data(base_value=1000, trend=15, seasonal_amplitude=200, noise_level=30),
-        # Item B: Moderate seasonality, high trend, moderate noise
-        create_seasonal_data(base_value=500, trend=25, seasonal_amplitude=100, noise_level=50),
-        # Item C: Weak seasonality, negative trend, high noise
-        create_seasonal_data(base_value=1500, trend=-10, seasonal_amplitude=50, noise_level=100)
-    ])
-}
 
-# Create DataFrame and set multi-index
-df = pd.DataFrame(data)
-df = df.set_index(['item_id', 'timestamp'])
 
-# Convert to TimeSeriesDataFrame
-train_data = TimeSeriesDataFrame.from_data_frame(
-    df,
-    id_column='item_id',
-    timestamp_column='timestamp'
-)
+def main():
+    # Create different patterns for different items
+    data = {
+        "item_id": ["A"] * 36 + ["B"] * 36 + ["C"] * 36,
+        "timestamp": timestamps.tolist() * 3,
+        "sales": np.concatenate(
+            [
+                # Item A: Strong seasonality, moderate trend, low noise
+                create_seasonal_data(
+                    base_value=1000, trend=15, seasonal_amplitude=200, noise_level=30
+                ),
+                # Item B: Moderate seasonality, high trend, moderate noise
+                create_seasonal_data(
+                    base_value=500, trend=25, seasonal_amplitude=100, noise_level=50
+                ),
+                # Item C: Weak seasonality, negative trend, high noise
+                create_seasonal_data(
+                    base_value=1500, trend=-10, seasonal_amplitude=50, noise_level=100
+                ),
+            ]
+        ),
+    }
 
-# item_id   timestamp  sales
+    # Create DataFrame and set multi-index
+    df = pd.DataFrame(data)
+    df = df.set_index(["item_id", "timestamp"])
 
-# Initialize predictor
-predictor = TimeSeriesPredictor(
-    prediction_length=6,      # Forecast horizon
-    eval_metric='MASE',      # Evaluation metric
-    target='sales',          # Target variable
-)
+    # Convert to TimeSeriesDataFrame
+    train_data = TimeSeriesDataFrame.from_data_frame(
+        df, id_column="item_id", timestamp_column="timestamp"
+    )
 
-# Train the predictor
-predictor.fit(train_data=train_data)
+    # item_id   timestamp  sales
 
-# Generate forecasts
-forecasts = predictor.predict(train_data)
-logger.info(forecasts.head())
+    # Initialize predictor
+    predictor = TimeSeriesPredictor(
+        prediction_length=6,  # Forecast horizon
+        eval_metric="MASE",  # Evaluation metric
+        target="sales",  # Target variable
+    )
 
-# Plot forecasted vs actual values
-predictor.plot(train_data)
+    # Train the predictor
+    predictor.fit(train_data=train_data)
 
-# Evaluate model performance
-performance = predictor.evaluate(train_data)
-logger.info(performance)
+    # Generate forecasts
+    forecasts = predictor.predict(train_data)
+    logger.info(forecasts.head())
 
-# item_id   timestamp      sales
-# 0       A 2022-01-31  350.1234
-# 1       A 2022-02-28  360.5678
-# 2       A 2022-03-31  370.9876
-# 3       B 2022-01-31  310.4321
-# 4       B 2022-02-28  320.8765
+    # Plot forecasted vs actual values
+    predictor.plot(train_data)
 
-# Plot forecasted vs actual values
-predictor.plot(train_data)
+    # Evaluate model performance
+    performance = predictor.evaluate(train_data)
+    logger.info(performance)
 
-# Evaluate model performance
-performance = predictor.evaluate(df)
-logger.info(performance)
+    # item_id   timestamp      sales
+    # 0       A 2022-01-31  350.1234
+    # 1       A 2022-02-28  360.5678
+    # 2       A 2022-03-31  370.9876
+    # 3       B 2022-01-31  310.4321
+    # 4       B 2022-02-28  320.8765
 
-predictor.save("timeseries_model")
+    # Plot forecasted vs actual values
+    predictor.plot(train_data)
 
-"""
-Load the Model
-Load the saved model to make predictions on new data.
-"""
+    # Evaluate model performance
+    performance = predictor.evaluate(df)
+    logger.info(performance)
 
-predictor = TimeSeriesPredictor.load("timeseries_model")
-new_forecasts = predictor.predict(new_data)
+    predictor.save("timeseries_model")
+
+    """
+    Load the Model
+    Load the saved model to make predictions on new data.
+    """
+
+    predictor = TimeSeriesPredictor.load("timeseries_model")
+    new_forecasts = predictor.predict(new_data)
+
+
+if __name__ == "__main__":
+    main()
