@@ -11,14 +11,7 @@ AutoGluon is auto ML Python library that streamlines feature engineering, model 
 
 AutoGluon's time series module automates a lot of things --- including model selection, tuning, and feature engineering. It can create ensembles by combining multiple models. The API is easy to use (especially if you have built models with AWS SageMaker before).
 
-## About
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
-
-## Files
-
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
 
 ## Disclaimer
 
